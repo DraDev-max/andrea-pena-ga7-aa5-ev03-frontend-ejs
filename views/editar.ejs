@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Usuario - Sport Family</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="form-page">
+    <header class="dashboard-header">
+        <div class="dashboard-header-inner">
+            <div class="brand">
+                <img src="/img/logo-sf.png" alt="Sport Family Shoes" class="brand-mark">
+                <div class="brand-copy">
+                    <span>Sport Family</span>
+                    <small>Shoes</small>
+                </div>
+            </div>
+
+            <div class="top-actions">
+                <div class="user-pill">Usuario: <%= sesionUsuario %></div>
+                <a href="/usuarios" class="btn btn-ghost">Volver</a>
+                <a href="/logout" class="btn btn-danger">Salir</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-wrap">
+        <section class="hero-card">
+            <div class="meta-chip">Edición</div>
+            <h1 class="hero-title">Editar usuario</h1>
+            <p class="hero-copy">Actualiza los datos del registro seleccionado manteniendo el estilo de Sport Family.</p>
+        </section>
+
+        <section class="section-card form-card">
+            <% if (error) { %>
+                <div class="error"><%= error %></div>
+            <% } %>
+
+            <form action="/usuarios/editar" method="POST" class="form-grid">
+                <input type="hidden" name="id" value="<%= usuario.id %>">
+
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" value="<%= usuario.nombre %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" value="<%= usuario.email %>" required>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                    <a href="/usuarios" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Usuarios - Sport Family</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="list-page">
+    <header class="dashboard-header">
+        <div class="dashboard-header-inner">
+            <div class="brand">
+                <img src="/img/logo-sf.png" alt="Sport Family Shoes" class="brand-mark">
+                <div class="brand-copy">
+                    <span>Sport Family</span>
+                    <small>Shoes</small>
+                </div>
+            </div>
+
+            <div class="top-actions">
+                <div class="user-pill">Usuario: <%= usuario %></div>
+                <a href="/menu" class="btn btn-ghost">Menú</a>
+                <a href="/usuarios/nuevo" class="btn btn-primary">+ Nuevo usuario</a>
+                <a href="/logout" class="btn btn-danger">Salir</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-wrap">
+        <section class="hero-card">
+            <div class="meta-chip"><%= usuarios.length %> registros</div>
+            <h1 class="hero-title">Lista de Usuarios</h1>
+            <p class="hero-copy">Vista de administración con el mismo lenguaje visual del frontend Java, adaptada a las rutas del proyecto EJS.</p>
+        </section>
+
+        <section class="section-card">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Usuarios registrados</h2>
+                    <p class="section-subtitle">Editar, eliminar o crear nuevos usuarios desde aquí.</p>
+                </div>
+            </div>
+
+            <% if (usuarios.length === 0) { %>
+                <div class="empty-state">
+                    <p>No hay usuarios registrados.</p>
+                    <div style="margin-top: 14px;">
+                        <a href="/usuarios/nuevo" class="btn btn-primary">Crear usuario</a>
+                    </div>
+                </div>
+            <% } else { %>
+                <div class="table-shell">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% usuarios.forEach((usuarioItem) => { %>
+                                <tr>
+                                    <td><%= usuarioItem.id %></td>
+                                    <td><%= usuarioItem.nombre %></td>
+                                    <td><%= usuarioItem.email %></td>
+                                    <td>
+                                        <div class="actions">
+                                            <a href="/usuarios/editar/<%= usuarioItem.id %>" class="btn btn-primary">Editar</a>
+                                            <form action="/usuarios/eliminar" method="POST">
+                                                <input type="hidden" name="id" value="<%= usuarioItem.id %>">
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('¿Eliminar este usuario?')">Eliminar</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } %>
+        </section>
+    </main>
+</body>
+</html>
